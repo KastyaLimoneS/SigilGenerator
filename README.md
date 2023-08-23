@@ -1,6 +1,7 @@
 # SigilGenerator
 
 ### Desktop app to generate occult-style symbols based on input text
+![logo](https://i.imgur.com/i5ajOR1.png)
 
 ---
 

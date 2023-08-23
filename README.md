@@ -31,9 +31,11 @@
 ## Some Screenshots
 
 !["Icar" string result](https://i.imgur.com/TZyPHdQ.png)
+
 *"Icar" string -> this*
 
 !["Project Pegasus" string result](https://i.imgur.com/0HNRf47.png)
+
 *"Project Pegasus" string -> this*
 
 !["Project Echidna" string result](https://i.imgur.com/pwzqYP8.png)

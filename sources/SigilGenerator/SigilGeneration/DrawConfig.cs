@@ -9,7 +9,7 @@ public static class DrawConfig {
     public static readonly Vector2 StartNormal = -Vector2.UnitY;
     public static readonly Vector2 StartPosition = Vector2.One * 150;
     
-    private static readonly float _strokeWidth = 4;
+    private static readonly float _strokeWidth = 3;
     private static SKPaint? _paint;
     
     public static SKPaint GetPaint(SKPaintStyle style, uint color) {

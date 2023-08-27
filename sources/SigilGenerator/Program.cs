@@ -13,7 +13,7 @@ class Program {
     public static void Main(string[] args) =>
         BuildAvaloniaApp()
             .DoStartStuff(() => {
-                Generator.Root.RootSetUp();
+                Generator.SetUpRoot();
             })
             .StartWithClassicDesktopLifetime(args);
 

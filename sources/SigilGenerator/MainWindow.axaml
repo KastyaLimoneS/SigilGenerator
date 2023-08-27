@@ -119,7 +119,13 @@
                 </WrapPanel>
                 <Separator/>
             </StackPanel>
-            
+            <StackPanel Grid.Row="3" Grid.Column="2"
+						VerticalAlignment="Center"
+				        HorizontalAlignment="Center"
+				        Orientation="Horizontal">
+				<CheckBox Click="AltMode_Checked" />
+			    <TextBlock Text="Use alt-generator" VerticalAlignment="Center"/>
+			</StackPanel>
         </Grid>
     </Panel>
 </Window>

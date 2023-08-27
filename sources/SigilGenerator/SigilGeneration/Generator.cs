@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Controls;
 using SigilGenerator.SigilGeneration.Shapes;
+using SkiaSharp;
 
-namespace SigilGenerator.SigilGeneration; 
+namespace SigilGenerator.SigilGeneration;
 
-public static class Generator {
+public static class Generator
+{
     public static AbstractShape Root { get; private set; } = new PlaceholderCircle();
     public static TextBox Source;
+    public static bool AltMode = false;
     private static Dictionary<char, Func<AbstractShape>> _table = new Dictionary<char, Func<AbstractShape>>() {
         {'a', () => new Point()},
         {'b', () => new Arrow()},
@@ -37,20 +40,27 @@ public static class Generator {
         {'z', () => new Diamond()},
     };
 
-    public static void Generate(String replacer = "") {
+    public static void Generate(String replacer = "")
+    {
         var prompt = Source.Text;
         if (prompt == null || prompt.Equals(String.Empty))
             return;
+        if (AltMode) {
+            SigilGeneration.AltMode.Generator.Generate(prompt);
+            ColorsController.RecolorStuff();
+            return;
+        }
         prompt = prompt.Replace(" ", "").ToLower();
         if (replacer != "") prompt = replacer;
-        
-        try {
+        try
+        {
             var shapes = prompt.Where(x => _table.ContainsKey(x)).Select(x => _table[x]()).ToList();
             var poorShapes = shapes.TakeWhile(x => !x.HasIndex(0)).ToList();
             poorShapes.ForEach(x => shapes.Remove(x));
             shapes.AddRange(poorShapes);
             shapes.ForEach(x => x.RootSetUp());
-            shapes.Aggregate((s1, s2) => {
+            shapes.Aggregate((s1, s2) =>
+            {
                 s1.TrySetChild(s2);
 
                 return s1;
@@ -64,21 +74,41 @@ public static class Generator {
                 Root = shapes[0];
             ColorsController.RecolorStuff();
         }
-        catch (Exception) {
+        catch (Exception)
+        {
             Regenerate(prompt);
         }
     }
 
 
-    public static void Regenerate(String prompt_) {
+    public static void Regenerate(String prompt_)
+    {
         var seed = prompt_.MyHash();
         var safeString = "ccccggggrrrrief";
         var random = new Random(seed);
         var newPrompt = "";
-        while (random.NextSingle() > 0.6 || newPrompt.Length < 4) {
+        while (random.NextSingle() > 0.6 || newPrompt.Length < 4)
+        {
             newPrompt += safeString[(int)(random.NextSingle() * safeString.Length)];
         }
         Generate(newPrompt);
     }
 
+    public static void DrawSigil(SKCanvas canvas, uint color)
+    {
+        if (AltMode && SigilGeneration.AltMode.Generator.Root != null) {
+            SigilGeneration.AltMode.Generator.Root.DrawShape(canvas, DrawConfig.GetPaint(SKPaintStyle.Stroke, color));
+            return;
+        }
+        Root.DrawSelf(canvas, color);
+
+    }
+
+    public static void SetUpRoot()
+    {
+        if (AltMode && SigilGeneration.AltMode.Generator.Root != null) {
+            return;
+        }
+        Root.RootSetUp();
+    }
 }

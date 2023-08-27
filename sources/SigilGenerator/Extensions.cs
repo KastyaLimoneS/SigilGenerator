@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Avalonia;
 
@@ -26,13 +28,27 @@ public static class Extensions {
         return ang;
     }
 
+    public static float Deg2Rads(this float angle) {
+        return (angle / 360) * MathF.PI * 2;
+    }
+
     public static int MyHash(this String self) {
-        var result = 0;
-        foreach (var c in self) {
-            result *= 256;
-            result += c;
-        }
+        var self_ = self.ToCharArray().Select(x => (int) x);
+        var result = self_.Aggregate((x, y) => x ^ y);
+        int i = 0;
+        var result_ = BitConverter.GetBytes(result).Select(x => (byte)((i++ % 2 == 0) ? x ^ 0xFFFF : x)).ToArray();
+        result = BitConverter.ToInt32(result_) ^ self.Length;
 
         return result;
+    }
+
+    public static T SortedRandom<T>(this IEnumerable<T> self, Random random) {
+        var hl = self.Count() / 2;
+        if (hl == 0)
+            return self.First();
+        var halfself = self.ToList();
+        halfself.Reverse();
+        return halfself.Skip(random.Next(1, hl)).SortedRandom(random);
+
     }
 }

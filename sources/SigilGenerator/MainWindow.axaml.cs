@@ -52,4 +52,8 @@ public partial class MainWindow : Window {
     private void TextBox__OnInitialized(object? sender, EventArgs e) {
         Generator.Source = sender as TextBox;
     }
+
+    private void AltMode_Checked(object? sender, RoutedEventArgs e) {
+        Generator.AltMode = (sender as CheckBox).IsChecked.Value;
+    }
 }

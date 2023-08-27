@@ -16,13 +16,10 @@ public static class ImageCreator {
         var fgcolor = ColorsController.GetColor(ColorsController.Target.Sigil);
         using (SKCanvas canvas = new SKCanvas(image)) {
             canvas.Clear(new SKColor(bgcolor));
-            Generator.Root.DrawSelf(canvas, fgcolor);
+            Generator.DrawSigil(canvas, fgcolor);
         }
-        /*
-        var data = image.Encode(SKEncodedImageFormat.Png, 80);
-        using (var stream = File.OpenWrite(BufferImage)) {
-            data.SaveTo(stream);
-        }*/
+
+
         ActualImage = image.Encode(SKEncodedImageFormat.Png, 80);
 
     }

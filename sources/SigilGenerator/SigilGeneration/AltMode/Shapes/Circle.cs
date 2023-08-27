@@ -18,10 +18,11 @@ namespace SigilGenerator.SigilGeneration.AltMode.Shapes {
             var _innerAngle = (float) 360 / _vertecies;
             var sizeRatio = MathF.Cos((90 - _innerAngle / 2).Deg2Rads());
             //center is alway in the end.
-            if (random.NextSingle() < 0.6)
-                for (int i = 0; i < _vertecies; i++) {
-                _templates.Add(new FreePlaceBuilder(_innerAngle * i + angoffset, sizeRatio));
-                }
+            
+            for (int i = 0; i < _vertecies; i++) {
+                if (random.NextSingle() < 0.4)
+                    _templates.Add(new FreePlaceBuilder(_innerAngle * i + angoffset, sizeRatio));
+            }
             _templates.Add(new FreePlaceBuilder(0, sizeRatio, 0));
         }
     }

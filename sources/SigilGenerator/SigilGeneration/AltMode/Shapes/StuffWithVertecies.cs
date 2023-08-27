@@ -15,10 +15,11 @@ namespace SigilGenerator.SigilGeneration.AltMode.Shapes {
             _innerAngle = 360 / _vertecies;
             var sizeRatio = MathF.Cos((90 - _innerAngle / 2).Deg2Rads());
             //center is alway in the end.
-            for (int i = 0; i < _vertecies; i++) {
-                _templates.Add(new FreePlaceBuilder(_innerAngle * i + (_innerAngle * _floored)/2, sizeRatio));
-            }
             if (random.NextSingle() < 0.4)
+                for (int i = 0; i < _vertecies; i++) {
+                    _templates.Add(new FreePlaceBuilder(_innerAngle * i + (_innerAngle * _floored)/2, sizeRatio));
+                }
+            if (this.GetType() != typeof(Star))
                 _templates.Add(new FreePlaceBuilder(0, sizeRatio, 0));
         }
     }

@@ -40,11 +40,16 @@ public static class Generator
         {'z', () => new Diamond()},
     };
 
+    private static string _lastPromt = "";
+
     public static void Generate(String replacer = "")
     {
         var prompt = Source.Text;
         if (prompt == null || prompt.Equals(String.Empty))
             return;
+        if (prompt != _lastPromt)
+            SigilGeneration.AltMode.Generator.RerollCount = 0;
+        _lastPromt = prompt;
         if (AltMode) {
             SigilGeneration.AltMode.Generator.Generate(prompt);
             ColorsController.RecolorStuff();

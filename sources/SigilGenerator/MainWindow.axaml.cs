@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -48,6 +49,11 @@ public partial class MainWindow : Window {
     private void GenerateButton_OnClick(object? sender, RoutedEventArgs e) {
         Generator.Generate();
     }
+    
+    private void RerollButton_OnClick(object? sender, RoutedEventArgs e) {
+        SigilGeneration.AltMode.Generator.RerollCount++;
+        Generator.Generate();
+    }
 
     private void TextBox__OnInitialized(object? sender, EventArgs e) {
         Generator.Source = sender as TextBox;
@@ -55,5 +61,9 @@ public partial class MainWindow : Window {
 
     private void AltMode_Checked(object? sender, RoutedEventArgs e) {
         Generator.AltMode = (sender as CheckBox).IsChecked.Value;
+    }
+
+    private void RangeBase_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e) {
+        SigilGeneration.AltMode.Generator.Complexity = (float)(sender as Slider).Value;
     }
 }

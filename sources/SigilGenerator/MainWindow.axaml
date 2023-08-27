@@ -2,11 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
         x:Class="SigilGenerator.MainWindow"
         Title="SigilGenerator"
         Width="800"
-        Height="450"
+        Height="500"
         Background="#FF34495E">
     <Panel Width="800" Height="450">
         <Grid
@@ -32,6 +32,7 @@
                          Initialized="TextBox__OnInitialized"
                          />
                 <Button RelativePanel.RightOf="TextBox_" Content="GENERATE" Click="GenerateButton_OnClick"/>
+                <Button RelativePanel.LeftOf="TextBox_" Content="🎲" Click="RerollButton_OnClick"/>
             </RelativePanel>
             <StackPanel Grid.Row="2" Grid.Column="1" 
                         VerticalAlignment="Center"
@@ -126,6 +127,13 @@
 				<CheckBox Click="AltMode_Checked" />
 			    <TextBlock Text="Use alt-generator" VerticalAlignment="Center"/>
 			</StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Use alt-generator" VerticalAlignment="Center"/>
+                <Slider Minimum="0.3" Maximum="0.9" Value="0.7"
+                        ValueChanged="RangeBase_OnValueChanged"/>
+            </StackPanel>
         </Grid>
     </Panel>
 </Window>
